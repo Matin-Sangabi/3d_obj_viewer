@@ -20,8 +20,9 @@ const EditLayer = () => {
 
       xhr.send();
     }
-    const url = "http://localhost:3000/dxf/dfxfor3d.dxf";
+    const url = "/dxf/dfxfor3d.dxf";
     convertUrlToFileObject(url, (file) => {
+      console.log(file)
       setDataFile(file);
     });
   }, []);

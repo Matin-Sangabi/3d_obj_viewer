@@ -4,12 +4,14 @@ import Layout from "../../components/container/layout";
 import UseMyDropzoneFile from "../../components/dropzone/useDropzone";
 import Backdrop from "../../components/backdrop";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const Homepage = () => {
   //*states
   const [showTransform, setShowTransform] = useState(false);
   const [myFile, setMyFile] = useState([]);
   const [loading, setLoading] = useState(false);
   //* call hooks
+  const navigate = useNavigate();
   const onDrop = useCallback(
     (acceptedFiles) => {
       setMyFile([...myFile, ...acceptedFiles]);
@@ -27,8 +29,10 @@ const Homepage = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      toast.success("data_transfer");
+        toast.success("data_transfer");
+        navigate("/editLayer")
     }, 1500);
+      
   };
   return (
     <Layout>

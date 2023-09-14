@@ -24,6 +24,7 @@ const ObjViewer = () => {
       toast.error("first take shot of object and second convert data ");
       return;
     }
+    console.log(scImages);
     const files = dataURLtoFile(scImages, "sc_image.jpg");
     console.log(files);
   };

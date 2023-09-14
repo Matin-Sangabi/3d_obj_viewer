@@ -15,6 +15,7 @@ const ActiveButtonGroup = () => {
         {active_btn_data.map((item) => (
           <button
             onClick={() => clickHandler(item.id)}
+            key={item.id}
             className={` flex flex-1 text-center items-center py-2 px-2  justify-center  text-sm hover:bg-[#809fb8] rounded-md ring-1 ring-[#809FB8] ${
               active.includes(item.id) ? "bg-[#809fb8]" : ""
             }`}

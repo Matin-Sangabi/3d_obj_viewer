@@ -3,6 +3,8 @@ import { DXFViewer } from "../src/dxfViewer";
 import { Boilerplate } from "../boilerplate";
 import GUI from "lil-gui";
 import "./index.css";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 // let html = new Boilerplate();
 const font = "fonts/helvetiker_regular.typeface.json";
@@ -13,6 +15,8 @@ let snaps, gui;
 const Layer = ({ address_file }) => {
   const [activeViewer, setViewer] = useState([]);
   const [visibleLayer, setVisibleLayer] = useState({});
+  const navigate = useNavigate();
+
   useEffect(() => {
     let html = new Boilerplate();
     html.onLoad = async (file) => {
@@ -79,8 +83,11 @@ const Layer = ({ address_file }) => {
       }
     }
     setVisibleLayer(visible);
+    setTimeout(() => {
+      window.location.href = "/convert"
+      toast.success("layer changes success");
+    }, 1500);
   };
-  console.log(visibleLayer);
   return (
     <div>
       <div className="flex h-full min-h-[80vh] items-center justify-center w-full relative ">

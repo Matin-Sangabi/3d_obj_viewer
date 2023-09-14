@@ -29,8 +29,8 @@ const ObjViewer = () => {
     console.log(files);
   };
   //* convert base64 to file
-  const dataURLtoFile = (dataurl, filename) => {
-    const arr = dataurl.split(",");
+  const dataURLtoFile = (dataUrl, filename) => {
+    const arr = dataUrl.split(",");
     const mime = arr[0].match(/:(.*?);/)[1];
     const bstr = atob(arr[1]);
     let n = bstr.length;
@@ -131,14 +131,9 @@ const ObjViewer = () => {
       requestAnimationFrame(animate);
       renderer.render(scene, camera);
     }
-    if (process.env.NODE_ENV === "production") {
-      init();
+    init();
       animate();
-    }
     return () => {
-      // console.log("return_run");
-      init();
-      animate();
       window.removeEventListener("resize", onWindowResize);
     };
   }, []);

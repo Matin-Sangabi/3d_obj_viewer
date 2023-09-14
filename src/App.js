@@ -1,12 +1,12 @@
-import Layout from "./components/container/layout";
-import ObjViewer from "./components/obj/objViewer";
+import { Route, Routes } from "react-router-dom";
+// import Layout from "./components/container/layout";
+// import ObjViewer from "./components/obj/objViewer";
+import Homepage from "./pages/home";
 const App = () => {
   return (
-    <Layout>
-      <div className="max-w-screen-2xl mx-auto container px-4 py-4">
-        <ObjViewer />
-      </div>
-    </Layout>
+    <Routes>
+      <Route path="/" element={<Homepage />} />
+    </Routes>
   );
 };
 

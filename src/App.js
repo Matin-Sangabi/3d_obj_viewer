@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import Layout from "./components/container/layout";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <div className="max-w-screen-2xl mx-auto container px-4">
+        <div className="grid grid-cols-12 gap-x-4 gap-y-4 px-4">
+          <div className="col-span-12 lg:col-span-9 ">
+            <div className="w-full p-4 bg-white shadow-md rounded-md">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </Layout>
   );
-}
+};
 
 export default App;

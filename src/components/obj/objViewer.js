@@ -76,13 +76,13 @@ const ObjViewer = () => {
       };
 
       new MTLLoader()
-        .setPath("/obj/")
+        .setPath("obj/")
         .load("building_04.mtl", function (materials) {
           materials.preload();
 
           new OBJLoader()
             .setMaterials(materials)
-            .setPath("/obj/")
+            .setPath("obj/")
             .load(
               "building_04.obj",
               function (object) {
@@ -131,9 +131,15 @@ const ObjViewer = () => {
       requestAnimationFrame(animate);
       renderer.render(scene, camera);
     }
-    return () => {
+    if (process.env.NODE_ENV === "production") {
       init();
       animate();
+    }
+    return () => {
+      // console.log("return_run");
+      init();
+      animate();
+      window.removeEventListener("resize", onWindowResize);
     };
   }, []);
 

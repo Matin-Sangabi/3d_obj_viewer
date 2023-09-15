@@ -1,10 +1,11 @@
 import { useCallback, useState } from "react";
 import Layout from "../../components/container/layout";
-
+import Cookies from "js-cookie";
 import UseMyDropzoneFile from "../../components/dropzone/useDropzone";
 import Backdrop from "../../components/backdrop";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { http } from "../../service/httprequest";
 const Homepage = () => {
   //*states
   const [showTransform, setShowTransform] = useState(false);
@@ -27,12 +28,18 @@ const Homepage = () => {
     const formData = new FormData();
     formData.append("uploaded_file", file);
     setLoading(true);
-    setTimeout(() => {
+    try {
+      const { data } = await http.post("/api/v1/render/convert/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      Cookies.set("file_id", data.id);
+      toast.success("data transfer");
+      navigate(`/editLayer`);
       setLoading(false);
-        toast.success("data_transfer");
-        navigate("/editLayer")
-    }, 1500);
-      
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
   };
   return (
     <Layout>

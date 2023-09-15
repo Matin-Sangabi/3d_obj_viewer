@@ -15,7 +15,6 @@ let snaps, gui;
 const Layer = ({ address_file }) => {
   const [activeViewer, setViewer] = useState([]);
   const [visibleLayer, setVisibleLayer] = useState({});
-  const navigate = useNavigate();
 
   useEffect(() => {
     let html = new Boilerplate();
@@ -28,7 +27,7 @@ const Layer = ({ address_file }) => {
       // console.log(dxf);
       if (dxf) {
         //Optional. Add control snap.
-        if (snaps) snaps.clear();
+        // if (snaps) snaps.clear();
 
         //get layer names
         const layer_names = Object.keys(viewer.layers);
@@ -73,6 +72,7 @@ const Layer = ({ address_file }) => {
       }
     };
     html.init(address_file);
+    console.log(address_file);
   }, [address_file]);
 
   const clickHandler = () => {
@@ -84,7 +84,7 @@ const Layer = ({ address_file }) => {
     }
     setVisibleLayer(visible);
     setTimeout(() => {
-      window.location.href = "/convert"
+      window.location.href = "/convert";
       toast.success("layer changes success");
     }, 1500);
   };

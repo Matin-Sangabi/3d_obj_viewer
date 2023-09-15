@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { BsFullscreen } from "react-icons/bs";
 import ActiveButtonGroup from "../active_btn";
 import toast from "react-hot-toast";
+import Resizer from "react-image-file-resizer";
+
 let camera, scene, renderer;
 
 const ObjViewer = () => {
@@ -19,15 +21,39 @@ const ObjViewer = () => {
     const imgData = renderer.domElement.toDataURL(strMime);
     setScImages(imgData);
   };
-  const sendDataHandler = () => {
+  const sendDataHandler = async () => {
     if (!scImages) {
       toast.error("first take shot of object and second convert data ");
       return;
     }
-    console.log(scImages);
-    const files = dataURLtoFile(scImages, "sc_image.jpg");
-    console.log(files);
+    try {
+      const files = dataURLtoFile(scImages, "sc_image.jpg");
+      const resizeFiles = await resizeFile(files);
+      const formData = new FormData();
+      formData.append("uploaded_image", resizeFiles, resizeFiles.name);
+      
+    } catch (error) {
+      console.log(error);
+    }
   };
+  //* resize size
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        1200,
+        1200,
+        "PNG",
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "file",
+        600,
+        600
+      );
+    });
   //* convert base64 to file
   const dataURLtoFile = (dataUrl, filename) => {
     const arr = dataUrl.split(",");
@@ -58,7 +84,7 @@ const ObjViewer = () => {
       scene = new THREE.Scene();
       scene.background = new THREE.Color(0x282828);
 
-      scene.add(new THREE.GridHelper(100, 100, 0xb91c1c, 0x393939));
+      // scene.add(new THREE.GridHelper(100, 100, 0xb91c1c, 0x393939));
       const ambientLight = new THREE.AmbientLight(0xffffff);
       scene.add(ambientLight);
 
@@ -132,10 +158,8 @@ const ObjViewer = () => {
       renderer.render(scene, camera);
     }
     init();
-      animate();
-    return () => {
-      window.removeEventListener("resize", onWindowResize);
-    };
+    animate();
+    window.removeEventListener("resize", onWindowResize);
   }, []);
 
   return (

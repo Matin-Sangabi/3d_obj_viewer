@@ -22,9 +22,10 @@ const EditLayer = () => {
           setLoading(true);
         } else {
           const url = res.data.converted_file;
-          convertUrlToFileObject(url, (file) => {
-            setDataFile(file);
-          });
+          setDataFile(url);
+          // convertUrlToFileObject(url, (file) => {
+          //   setDataFile(file);
+          // });
           setLoading(false);
           clearInterval(getData);
         }

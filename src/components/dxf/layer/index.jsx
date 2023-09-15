@@ -23,7 +23,7 @@ const Layer = ({ address_file }) => {
       gui = new GUI({ width: 310 });
       html.three.clear();
 
-      let dxf = await viewer.getFromFile(file, font);
+      let dxf = await viewer.getFromPath(file, font);
       // console.log(dxf);
       if (dxf) {
         //Optional. Add control snap.

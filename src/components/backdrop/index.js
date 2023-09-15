@@ -1,6 +1,6 @@
 const Backdrop = () => {
   return (
-    <div className="w-full h-screen fixed top-0 left-0 bg-gray-600 bg-opacity-40">
+    <div className="w-full h-screen fixed top-0 left-0 bg-gray-600 bg-opacity-40 z-[10000]">
       <div className="w-full h-full flex items-center justify-center">
         <div className="flex flex-col gap-y-2 items-center bg-gradient-to-r from-[#4a89f0] via-[#206de7] to-[#2377FC] rounded-lg shadow py-6 px-4">
           <span className="">

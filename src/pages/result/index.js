@@ -3,7 +3,6 @@ import Layout from "../../components/container/layout";
 
 const Result = () => {
   const [searchParams] = useSearchParams();
-  console.log(searchParams.get("image"));
   return (
     <Layout color={"bg-slate-200"}>
       <div className="w-full min-h-screen flex items-center justify-center ">

@@ -72,7 +72,6 @@ const Layer = ({ address_file }) => {
       }
     };
     html.init(address_file);
-    console.log(address_file);
   }, [address_file]);
 
   const clickHandler = () => {

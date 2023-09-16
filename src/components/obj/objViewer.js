@@ -150,7 +150,7 @@ const ObjViewer = () => {
             .load(
               "building_04.obj",
               function (object) {
-                object.position.y = 0.05;
+                object.position.y = -0.2;
                 object.scale.setScalar(0.1);
                 scene.add(object);
               },

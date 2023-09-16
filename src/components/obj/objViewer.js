@@ -21,6 +21,10 @@ const ObjViewer = () => {
   //* states
   const [scImages, setScImages] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [roof, setRoof] = useState(0);
+  const [wall, setWall] = useState(0);
+  const [place, setPlace] = useState(0);
+
   //*actions
   const getImage = () => {
     var strMime = "image/jpeg";
@@ -37,10 +41,13 @@ const ObjViewer = () => {
       const files = dataURLtoFile(scImages, "sc_image.jpg");
       const resizeFiles = await resizeFile(files);
       const formData = new FormData();
-      const prompt = "";
+      const value = [roof, wall, place];
+
+      const prompt = value.toString();
       formData.append("uploaded_image", resizeFiles, resizeFiles.name);
       formData.append("prompt", prompt);
       const id = Cookies.get("file_id");
+
       const { data } = await http.post(
         `/api/v1/render/upload_image/${id}/`,
         formData,
@@ -56,6 +63,16 @@ const ObjViewer = () => {
       console.log(error);
       setLoading(false);
     }
+  };
+
+  const roofClickHandler = (value) => {
+    setRoof(value);
+  };
+  const wallClickHandler = (value) => {
+    setWall(value);
+  };
+  const placeClickHandler = (value) => {
+    setPlace(value);
   };
   //* resize size
   const resizeFile = (file) =>
@@ -208,9 +225,16 @@ const ObjViewer = () => {
         </div>
         <div className="col-span-12 lg:col-span-2">
           <div className="p-2 w-full bg-white rounded-md shadow-md h-full flex items-center justify-between flex-col ">
-            <div className="flex flex-col gap-y-2">
+            <div className="flex flex-col gap-y-2 w-full">
               <h1 className="text-lg text-center py-4">Prompt : </h1>
-              <ActiveButtonGroup />
+              <ActiveButtonGroup
+                roofClickHandler={roofClickHandler}
+                wallClickHandler={wallClickHandler}
+                placeClickHandler={placeClickHandler}
+                roof={roof}
+                wall={wall}
+                place={place}
+              />
             </div>
             <div className="px-4"></div>
             <button

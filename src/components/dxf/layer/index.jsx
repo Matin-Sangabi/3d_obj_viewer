@@ -95,7 +95,7 @@ const Layer = ({ address_file }) => {
           onClick={clickHandler}
           className="flex items-center justify-center py-3 absolute bottom-4 left-6 text-sm rounded-md  z-50 bg-[#809fb0] px-6 "
         >
-          Get Layer
+          Render
         </button>
       </div>
     </div>

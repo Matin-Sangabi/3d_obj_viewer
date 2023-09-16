@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 import Backdrop from "../backdrop";
 
 let camera, scene, renderer;
-
 const ObjViewer = () => {
   //* ref
   const refContainer = useRef(null);
@@ -24,11 +23,14 @@ const ObjViewer = () => {
   const [roof, setRoof] = useState(0);
   const [wall, setWall] = useState(0);
   const [place, setPlace] = useState(0);
+  const [dataLoaded, setDataLoaded] = useState(true);
+  const [dataloader, setDataLoader] = useState(true);
 
   //*actions
   const getImage = () => {
     var strMime = "image/jpeg";
     const imgData = renderer.domElement.toDataURL(strMime);
+    toast.success("shot save ");
     setScImages(imgData);
   };
   const sendDataHandler = async () => {
@@ -133,9 +135,12 @@ const ObjViewer = () => {
       // model
 
       const onProgress = function (xhr) {
+        setDataLoaded(true);
         if (xhr.lengthComputable) {
           const percentComplete = (xhr.loaded / xhr.total) * 100;
-          console.log(Math.round(percentComplete, 2) + "% downloaded");
+          if (Math.round(percentComplete) === 100) {
+            setDataLoaded(false);
+          }
         }
       };
 
@@ -199,7 +204,13 @@ const ObjViewer = () => {
     animate();
     window.removeEventListener("resize", onWindowResize);
   }, []);
-
+  useEffect(() => {
+    if (!dataLoaded) {
+      setTimeout(() => {
+        setDataLoader(false);
+      }, 1000);
+    }
+  }, [dataLoaded]);
   return (
     <>
       {loading ? <Backdrop /> : ""}
@@ -226,7 +237,6 @@ const ObjViewer = () => {
         <div className="col-span-12 lg:col-span-2">
           <div className="p-2 w-full bg-white rounded-md shadow-md h-full flex items-center justify-between flex-col ">
             <div className="flex flex-col gap-y-2 w-full">
-              <h1 className="text-lg text-center py-4">Prompt : </h1>
               <ActiveButtonGroup
                 roofClickHandler={roofClickHandler}
                 wallClickHandler={wallClickHandler}
@@ -237,12 +247,39 @@ const ObjViewer = () => {
               />
             </div>
             <div className="px-4"></div>
-            <button
-              onClick={sendDataHandler}
-              className="w-full flex items-center bg-[#809fb9]  py-2 justify-center rounded-md "
-            >
-              convert
-            </button>
+            <div className="flex flex-col gap-y-2 w-full">
+              {scImages ? (
+                <div className="flex flex-col gap-y-2">
+                  <p className="text-sm">your shot : </p>
+                  <img
+                    src={scImages}
+                    className="w-28 h-28 rounded-md"
+                    alt="scImage"
+                  />
+                </div>
+              ) : null}
+              <div>
+                {!dataLoaded ? (
+                  dataloader ? (
+                    <p className="text-sm text-center bg-green-300 text-green-700 px-2 py-2 rounded-md">
+                      data ready
+                    </p>
+                  ) : (
+                    ""
+                  )
+                ) : (
+                  <p className="text-xs py-2 px-2 rounded-lg bg-orange-300 text-orange-700 text-center ">
+                    data is process , please wait ...
+                  </p>
+                )}
+              </div>
+              <button
+                onClick={sendDataHandler}
+                className="w-full flex items-center bg-[#809fb9]  py-2 justify-center rounded-md "
+              >
+                convert
+              </button>
+            </div>
           </div>
         </div>
       </div>

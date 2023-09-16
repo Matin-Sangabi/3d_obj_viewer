@@ -75,5 +75,5 @@ const wall_btn_data = [
 ];
 const place_btn_data = [
   { name: "rural", id: 1, value: "rural place" },
-  { name: "sea side", id: 2, value: "seaside place" },
+  { name: "beach", id: 2, value: "beach" },
 ];

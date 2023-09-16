@@ -253,7 +253,7 @@ const ObjViewer = () => {
                   <p className="text-sm">your shot : </p>
                   <img
                     src={scImages}
-                    className="w-28 h-28 rounded-md"
+                    className="w-32 h-32 rounded-md"
                     alt="scImage"
                   />
                 </div>
